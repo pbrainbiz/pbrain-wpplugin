@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Plugin Name:  PBrain Lead Generation ChatGPT Chatbot
  * Plugin URI:   https://www.pbrain.biz
@@ -44,7 +45,7 @@ if (version_compare(phpversion(), '7.0', '<')) {
      */
     function pbrain_php52_notice()
     {
-      ?>
+?>
       <div class="notice notice-error">
         <p>
           <?php
@@ -67,7 +68,7 @@ if (version_compare(phpversion(), '7.0', '<')) {
         </p>
       </div>
 
-      <?php
+<?php
       // In case this is on plugin activation.
       // phpcs:disable WordPress.Security.NonceVerification.Recommended
       if (isset($_GET['activate'])) {

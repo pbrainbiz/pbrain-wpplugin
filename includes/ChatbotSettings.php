@@ -1,4 +1,5 @@
 <?php
+
 namespace PBrain {
   final class ChatbotSettings
   {
@@ -12,11 +13,13 @@ namespace PBrain {
      */
     public function __construct()
     {
-       // Set class property
+      // Set class property
       $this->options = get_option('pbrain_settings');
+      add_action('wp_ajax_pbrain_settings_save', [$this, 'all_settings_save']);
       if (is_admin()) {
-        add_action('admin_menu', array($this, 'add_plugin_page'));
-        add_action('admin_init', array($this, 'page_init'));
+        add_action('admin_menu', [$this, 'add_plugin_page']);
+        add_action('admin_init', [$this, 'page_init']);
+        add_action('admin_enqueue_scripts', [$this, 'svelte_scripts']);
       }
     }
 
@@ -28,6 +31,60 @@ namespace PBrain {
     public function get_chatbot_id()
     {
       return isset($this->options['chatbot_id']) ? $this->options['chatbot_id'] : '';
+    }
+
+    public function svelte_scripts($hook)
+    {
+      if ('settings_page_pbrain-options' != $hook) {
+        return;
+      }
+
+      $js_paths = glob(PBRAIN_PLUGIN_DIR . '/dist/*.js');
+      if (count($js_paths) > 0) {
+        wp_enqueue_script('pbrain-svelte-js', $js_paths[0], [], $hook, true);
+      }
+
+      $css_paths = glob(PBRAIN_PLUGIN_DIR . '/dist/*.css');
+      if (count($css_paths) > 0) {
+        wp_enqueue_style('pbrain-svelte-css', $css_paths[0]);
+      }
+
+      wp_localize_script('pbrain-svelte-js', 'pbrain_wpplugin_global', [
+        'nonce' => wp_create_nonce('pbrain-ajax-nonce')
+      ]);
+    }
+
+    public function all_settings_save()
+    {
+      if (!is_admin()) {
+        return wp_send_json([
+          'status' => 'fail'
+        ], 400);
+      }
+
+      if (
+        isset($_POST['data'], $_POST['_ajax_nonce'])
+        && wp_verify_nonce($_POST['_ajax_nonce'], 'pbrain-ajax-nonce')
+      ) {
+        // Input var okay.
+        $user_settings = json_decode(wp_unslash($_POST['data']));
+        $new_settings = [
+          'chatbot_id' => !empty($user_settings->chatbotId)
+            ? $user_settings->chatbotId
+            : $this->options['chatbot_id']
+        ];
+
+        $updated = update_option('pbrain_settings', $new_settings);
+        $this->options = $new_settings;
+        return wp_send_json([
+          'status' => 'success',
+          'updated' => $updated,
+        ]);
+      }
+
+      return wp_send_json([
+        "status" => "fail"
+      ], 400);
     }
 
     /**
@@ -50,19 +107,13 @@ namespace PBrain {
      */
     public function create_admin_page()
     {
-      ?>
+?>
       <div class="wrap">
-          <h1><?php echo esc_html(get_admin_page_title()); ?></h1>
-          <form method="post" action="options.php">
-          <?php
-          // This prints out all hidden setting fields
-          settings_fields('pbrain_option_group');
-          do_settings_sections('pbrain-options');
-          submit_button();
-          ?>
-          </form>
+        <h1><?php echo esc_html(get_admin_page_title()); ?></h1>
+        <div id="pbrain-options-fields" data-chatbot-id="<?php echo isset($this->options['chatbot_id']) ? esc_attr($this->options['chatbot_id']) : '' ?>">
+        </div>
       </div>
-      <?php
+<?php
     }
 
     /**
@@ -74,29 +125,6 @@ namespace PBrain {
         'pbrain_option_group', // Option group
         'pbrain_settings', // Option name
         [$this, 'sanitize'] // Sanitize
-      );
-
-      add_settings_section(
-        'pbrain_section_general', // ID
-        __('General', 'pbrain'), // Title
-        [$this, 'print_section_info'], // Callback
-        'pbrain-options' // Page
-      );
-
-      // add_settings_field(
-      //   'id_number', // ID
-      //   'ID Number', // Title 
-      //   array($this, 'id_number_callback'), // Callback
-      //   'pbrain-options', // Page
-      //   'pbrain_section_general' // Section           
-      // );
-
-      add_settings_field(
-        'chatbot_id',
-        __('PBrain id', 'pbrain'),
-        [$this, 'chatbot_id_callback'],
-        'pbrain-options',
-        'pbrain_section_general'
       );
     }
 
@@ -111,43 +139,11 @@ namespace PBrain {
       // if (isset($input['id_number']))
       //   $new_input['id_number'] = absint($input['id_number']);
 
-      if (isset($input['chatbot_id']))
+      if (isset($input['chatbot_id'])) {
         $new_input['chatbot_id'] = sanitize_text_field($input['chatbot_id']);
+      }
 
       return $new_input;
-    }
-
-    /** 
-     * Print the Section text
-     */
-    public function print_section_info()
-    {
-      printf(
-        '<p id="pbrain_section_general">%s</p>',
-        esc_html_e('Generate leads and better engage your customers with your custom ChatGPT', 'pbrain')
-      );
-    }
-
-    // /** 
-    //  * Get the settings option array and print one of its values
-    //  */
-    // public function id_number_callback()
-    // {
-    //   printf(
-    //     '<input type="text" id="id_number" name="pbrain_settings[id_number]" value="%s" />',
-    //     isset($this->options['id_number']) ? esc_attr($this->options['id_number']) : ''
-    //   );
-    // }
-
-    /** 
-     * Get the settings option array and print one of its values
-     */
-    public function chatbot_id_callback()
-    {
-      printf(
-        '<input type="text" id="chatbot_id" name="pbrain_settings[chatbot_id]" value="%s" />',
-        isset($this->options['chatbot_id']) ? esc_attr($this->options['chatbot_id']) : ''
-      );
     }
   }
 }

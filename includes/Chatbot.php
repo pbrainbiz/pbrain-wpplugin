@@ -12,7 +12,7 @@ namespace PBrain {
   final class PBrain
   {
     private static $instance;
-    private static $chatbotSettings;
+    private static $chatbot_settings;
 
     public static function instance()
     {
@@ -21,7 +21,7 @@ namespace PBrain {
         !self::$instance instanceof self
       ) {
         self::$instance = new self();
-        self::$chatbotSettings = new ChatbotSettings();
+        self::$chatbot_settings = new ChatbotSettings();
 
         add_action('plugins_loaded', [self::$instance, 'init'], 10);
         add_action('wp_footer', [self::$instance, 'add_plugin']);
@@ -38,22 +38,26 @@ namespace PBrain {
 
     public function add_plugin()
     {
-      ?>
+?>
       <script>
-        window.pbrainAsyncInit = function () {
-          PBrain.init({ id: <?php echo json_encode(self::$chatbotSettings->get_chatbot_id()) ?> });
+        window.pbrainAsyncInit = function() {
+          PBrain.init({
+            id: <?php echo json_encode(self::$chatbot_settings->get_chatbot_id()) ?>
+          });
         };
 
-        (function (d, s, id) {
+        (function(d, s, id) {
           var js, fjs = d.getElementsByTagName(s)[0];
-          if (d.getElementById(id)) { return; }
+          if (d.getElementById(id)) {
+            return;
+          }
           js = d.createElement(s);
           js.id = id;
           js.src = 'http://localhost:8082/js/sdk.js';
           fjs.parentNode.insertBefore(js, fjs);
-        } (document, 'script', 'pbrain-jssdk'));
+        }(document, 'script', 'pbrain-jssdk'));
       </script>
-      <?php
+<?php
     }
 
     /**
@@ -66,7 +70,7 @@ namespace PBrain {
      */
     public function add_plugin_link($actions)
     {
-      $settings = array('settings' => '<a href="' . esc_url(self::$chatbotSettings->page_link()) . '">' . __('Settings', 'General') . '</a>');
+      $settings = array('settings' => '<a href="' . esc_url(self::$chatbot_settings->page_link()) . '">' . __('Settings', 'General') . '</a>');
       return array_merge($settings, $actions);
     }
   }
