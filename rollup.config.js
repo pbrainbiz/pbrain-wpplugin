@@ -1,3 +1,5 @@
+import { fileURLToPath } from "node:url";
+import path from "node:path";
 import resolve from "@rollup/plugin-node-resolve";
 import commonjs from "@rollup/plugin-commonjs";
 import terser from "@rollup/plugin-terser";
@@ -24,6 +26,19 @@ export default {
     dir: "dist",
     entryFileNames: production ? "bundle-[hash].js" : "bundle.js",
   },
+  moduleContext: {
+    [path
+      .join(
+        path.dirname(
+          fileURLToPath(import.meta.resolve("@microsoft/fetch-event-source")),
+        ),
+        "..",
+        "esm",
+        "fetch.js",
+      )
+      .slice(path.dirname(fileURLToPath(import.meta.url)).length + 1)
+      .replace(/\\/g, "/")]: "window",
+  },
   plugins: [
     clean(["dist"]),
     typescript({
@@ -37,7 +52,7 @@ export default {
         postcss: {
           plugins: [
             postcssNested,
-            tailwind,
+            tailwind(),
             autoprefixer,
             ...(production ? [cssnano] : []),
           ],

@@ -107,10 +107,20 @@ namespace PBrain {
      */
     public function create_admin_page()
     {
+      $url = get_site_url();
+      $current_user = wp_get_current_user();
+      $email = $current_user->user_email;
+      $name = !empty($current_user->display_name)
+        ? $current_user->display_name
+        : (!empty($current_user->user_firstname)
+          ? $current_user->user_firstname
+          : (!empty($current_user->user_lastname)
+            ? $current_user->user_lastname
+            : $current_user->user_login));
 ?>
       <div class="wrap">
         <h1><?php echo esc_html(get_admin_page_title()); ?></h1>
-        <div id="pbrain-options" data-chatbot-id="<?php echo isset($this->options['chatbot_id']) ? esc_attr($this->options['chatbot_id']) : '' ?>">
+        <div id="pbrain-options" data-chatbot-id="<?php echo isset($this->options['chatbot_id']) ? esc_attr($this->options['chatbot_id']) : '' ?>" data-url="<?php echo $url ?>" data-email="<?php echo $email ?>" data-name="<?php echo $name ?>">
         </div>
       </div>
 <?php

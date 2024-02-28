@@ -1,7 +1,11 @@
 <script>
   import fetchRetry from "./network/fetchRetry";
   import TailwindBase from "./TailwindBase.svelte";
+  import ChatbotCreator from "./ChatbotCreator.svelte";
   export let chatbotId = "1-1";
+  export let url = "";
+  export let email = "";
+  export let name = "";
 
   async function handleSubmit() {
     const body = new URLSearchParams();
@@ -23,13 +27,20 @@
     });
     console.log(response);
   }
+
+  async function handleCreated(event) {
+    const { appId, channelWebId, onboardId } = event.detail;
+    console.log("Created", appId, channelWebId, onboardId);
+    chatbotId = `${appId}-${channelWebId}`;
+    await handleSubmit();
+  }
 </script>
 
+<h2 id="pbrain_section_general">General</h2>
+<p>Generate leads and better engage your customers with your custom ChatGPT</p>
+<ChatbotCreator {url} {name} {email} on:created={handleCreated} />
+
 <form on:submit|preventDefault|stopPropagation={handleSubmit} method="post">
-  <h2 id="pbrain_section_general">General</h2>
-  <p>
-    Generate leads and better engage your customers with your custom ChatGPT
-  </p>
   <table class="form-table m-10" role="presentation">
     <tbody
       ><tr
@@ -55,9 +66,3 @@
   </p>
 </form>
 <TailwindBase />
-
-<!-- svelte-ignore css-unused-selector -->
-<style lang="postcss">
-  @tailwind components;
-  @tailwind utilities;
-</style>
