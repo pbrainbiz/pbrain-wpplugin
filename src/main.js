@@ -1,6 +1,6 @@
 import App from "./App.svelte";
 
-const target = document.getElementById("pbrain-options-fields");
+const target = document.getElementById("pbrain-options");
 const props = target ? target.dataset : {};
 
 const app = new App({

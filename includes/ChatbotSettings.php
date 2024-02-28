@@ -110,7 +110,7 @@ namespace PBrain {
 ?>
       <div class="wrap">
         <h1><?php echo esc_html(get_admin_page_title()); ?></h1>
-        <div id="pbrain-options-fields" data-chatbot-id="<?php echo isset($this->options['chatbot_id']) ? esc_attr($this->options['chatbot_id']) : '' ?>">
+        <div id="pbrain-options" data-chatbot-id="<?php echo isset($this->options['chatbot_id']) ? esc_attr($this->options['chatbot_id']) : '' ?>">
         </div>
       </div>
 <?php

@@ -1,5 +1,6 @@
 <script>
   import fetchRetry from "./network/fetchRetry";
+  import TailwindBase from "./TailwindBase.svelte";
   export let chatbotId = "1-1";
 
   async function handleSubmit() {
@@ -29,7 +30,7 @@
   <p>
     Generate leads and better engage your customers with your custom ChatGPT
   </p>
-  <table class="form-table" role="presentation">
+  <table class="form-table m-10" role="presentation">
     <tbody
       ><tr
         ><th scope="row">PBrain id</th><td
@@ -53,9 +54,10 @@
     />
   </p>
 </form>
+<TailwindBase />
 
-<style>
-  h1 {
-    color: #40b3ff;
-  }
+<!-- svelte-ignore css-unused-selector -->
+<style lang="postcss">
+  @tailwind components;
+  @tailwind utilities;
 </style>

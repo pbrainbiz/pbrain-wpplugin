@@ -3,11 +3,17 @@ import commonjs from "@rollup/plugin-commonjs";
 import terser from "@rollup/plugin-terser";
 import typescript from "@rollup/plugin-typescript";
 import clean from "@rollup-extras/plugin-clean";
+import autoprefixer from "autoprefixer";
+import cssnano from "cssnano";
+import postcssNested from "postcss-nested";
 import css from "rollup-plugin-css-only";
 import svelte from "rollup-plugin-svelte";
+import sveltePreprocess from "svelte-preprocess";
+import tailwind from "tailwindcss";
 
 const production = !process.env.ROLLUP_WATCH;
 
+/** @type {import('rollup').RollupOptions} */
 export default {
   input: "src/main.js",
   output: {
@@ -25,7 +31,19 @@ export default {
         target: "es2018",
       },
     }),
-    svelte(),
+    svelte({
+      preprocess: sveltePreprocess({
+        sourceMap: !production,
+        postcss: {
+          plugins: [
+            postcssNested,
+            tailwind,
+            autoprefixer,
+            ...(production ? [cssnano] : []),
+          ],
+        },
+      }),
+    }),
 
     // If you have external dependencies installed from
     // npm, you'll most likely need these plugins. In
