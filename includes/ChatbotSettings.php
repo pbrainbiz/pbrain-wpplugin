@@ -71,7 +71,13 @@ namespace PBrain {
         $new_settings = [
           'chatbot_id' => !empty($user_settings->chatbotId)
             ? $user_settings->chatbotId
-            : $this->options['chatbot_id']
+            : $this->options['chatbot_id'],
+          'onboard_id' => !empty($user_settings->onboardId)
+            ? $user_settings->onboardId
+            : $this->options['onboard_id'],
+          'signing_key' => !empty($user_settings->signingKey)
+            ? $user_settings->signingKey
+            : $this->options['signing_key']
         ];
 
         $updated = update_option('pbrain_settings', $new_settings);
@@ -108,9 +114,10 @@ namespace PBrain {
     public function create_admin_page()
     {
       $url = get_site_url();
+      $site_name = get_bloginfo();
       $current_user = wp_get_current_user();
       $email = $current_user->user_email;
-      $name = !empty($current_user->display_name)
+      $admin_name = !empty($current_user->display_name)
         ? $current_user->display_name
         : (!empty($current_user->user_firstname)
           ? $current_user->user_firstname
@@ -120,8 +127,16 @@ namespace PBrain {
 ?>
       <div class="wrap">
         <h1><?php echo esc_html(get_admin_page_title()); ?></h1>
-        <div id="pbrain-options" data-chatbot-id="<?php echo isset($this->options['chatbot_id']) ? esc_attr($this->options['chatbot_id']) : '' ?>" data-url="<?php echo $url ?>" data-email="<?php echo $email ?>" data-name="<?php echo $name ?>">
+        <div id="pbrain-options" data-chatbot-id="<?php echo isset($this->options['chatbot_id']) ? esc_attr($this->options['chatbot_id']) : '' ?>" data-onboard-id="<?php echo isset($this->options['onboard_id']) ? esc_attr($this->options['onboard_id']) : '' ?>" data-signing-key="<?php echo isset($this->options['signing_key']) ? esc_attr($this->options['signing_key']) : '' ?>" data-url="<?php echo $url ?>" data-email="<?php echo $email ?>" data-admin-name="<?php echo $admin_name ?>" data-site-name="<?php echo $site_name ?>">
         </div>
+        <form method="post" action="options.php">
+          <input type="hidden" name="pbrain_settings" value="" />
+          <?php
+          // This prints out all hidden setting fields
+          settings_fields('pbrain_option_group');
+          submit_button("Reset", type: 'secondary');
+          ?>
+        </form>
       </div>
 <?php
     }
@@ -151,6 +166,14 @@ namespace PBrain {
 
       if (isset($input['chatbot_id'])) {
         $new_input['chatbot_id'] = sanitize_text_field($input['chatbot_id']);
+      }
+
+      if (isset($input['onboard_id'])) {
+        $new_input['onboard_id'] = sanitize_text_field($input['onboard_id']);
+      }
+
+      if (isset($input['signing_key'])) {
+        $new_input['signing_key'] = sanitize_text_field($input['signing_key']);
       }
 
       return $new_input;

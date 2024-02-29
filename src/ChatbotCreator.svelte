@@ -6,14 +6,15 @@
     EventStreamContentType,
     fetchEventSource,
   } from "@microsoft/fetch-event-source";
-  import fetchRetry from "./network/fetchRetry";
-  import ClientApiError from "./network/ClientApiError";
 
   const dispatch = createEventDispatcher();
 
   export let url = "";
   export let email = "";
-  export let name = "";
+  export let adminName = "";
+  export let siteName = "";
+
+  const OnboardSource = 1;
 
   type CreateResponse =
     | { status: "continue"; message: string }
@@ -25,6 +26,7 @@
         appId: number;
         channelWebId: number;
         onboardId: string;
+        signingKey: string;
       }
     | { status: "error" };
 
@@ -33,21 +35,18 @@
   let urlSubmitting = false;
   let urlSubmitted = false;
   let urlMessage = "";
-  let urlError = "";
   let appId = 0;
   let channelWebId = 0;
   let onboardId = "";
 
-  let emailSubmitting = false;
-  let emailSubmitted = false;
-  let emailMessage = "";
-
   function handleCreateSubmit() {
     urlSubmitting = true;
     urlMessage = "";
-    urlError = "";
     let retry = 2;
-    fetchEventSource("http://localhost:8082/onboard/create", {
+
+    dispatch("creating");
+
+    fetchEventSource("https://www.pbrain.biz/onboard/create", {
       method: "POST",
       openWhenHidden: true,
       headers: {
@@ -56,6 +55,10 @@
       },
       body: JSON.stringify({
         url,
+        email,
+        adminName,
+        siteName,
+        onboardSource: OnboardSource,
       }),
       async onopen(response) {
         if (
@@ -67,13 +70,18 @@
 
         urlSubmitting = false;
         urlMessage = "";
-        urlError = "Something went wrong. Please contact support@pbrain.biz.";
+        dispatch("error", {
+          message: "Something went wrong. Please contact support@pbrain.biz.",
+        });
       },
       onerror(err) {
         if (err instanceof FatalError || retry <= 0) {
           urlSubmitting = false;
           urlMessage = "";
-          urlError = "Something went wrong. Please try again.";
+          dispatch("error", {
+            message: "Something went wrong. Please try again.",
+          });
+
           throw err; // rethrow to stop the operation
         }
 
@@ -89,7 +97,10 @@
         if (data.status === "error") {
           urlSubmitting = false;
           urlMessage = "";
-          urlError = "Something went wrong. Please try again.";
+          dispatch("error", {
+            message: "Something went wrong. Please try again.",
+          });
+
           retry -= 1;
           throw new FatalError();
         }
@@ -98,70 +109,20 @@
           urlMessage = data.message;
         } else if (data.status === "success") {
           urlMessage = "";
-          urlError = "";
           appId = data.appId;
           channelWebId = data.channelWebId;
           onboardId = data.onboardId;
           urlSubmitted = true;
-          dispatch("created", { appId, channelWebId, onboardId });
-          await submitEmail();
+          dispatch("created", {
+            appId,
+            channelWebId,
+            onboardId,
+            signingKey: data.signingKey,
+          });
         }
       },
     });
   }
-
-  async function submitEmail() {
-    emailSubmitting = true;
-    emailMessage = "";
-    try {
-      await fetchRetry("http://localhost:8082/onboard/email", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        body: JSON.stringify({
-          email,
-          onboardId,
-        }),
-      });
-
-      emailSubmitted = true;
-    } catch (ex) {
-      emailSubmitting = false;
-      if (ex instanceof ClientApiError) {
-        emailMessage =
-          "The email address does not look correct. Email address should look like john@example.com";
-      } else {
-        emailMessage = "Something went wrong. Please try again.";
-      }
-    }
-  }
-
-  onMount(async () => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const idFromUrl = urlParams.get("id");
-    const onboardIdFromUrl = urlParams.get("onboard-id");
-    if (idFromUrl && onboardIdFromUrl) {
-      const [appIdFromUrl, channelWebIdFromUrl] = idFromUrl.split("-");
-      let appIdFromUrlInt = 0;
-      let channelWebIdFromUrlInt = 0;
-      if (
-        appIdFromUrl &&
-        channelWebIdFromUrl &&
-        (appIdFromUrlInt = parseInt(appIdFromUrl, 10)) &&
-        (channelWebIdFromUrlInt = parseInt(channelWebIdFromUrl, 10))
-      ) {
-        appId = appIdFromUrlInt;
-        channelWebId = channelWebIdFromUrlInt;
-        onboardId = onboardIdFromUrl;
-        urlSubmitted = true;
-
-        await tick();
-        // PBrain.init();
-      }
-    }
-  });
 </script>
 
 {#if !urlSubmitted}
@@ -175,7 +136,8 @@
         type="submit"
         class="button button-primary"
         disabled={urlSubmitting}
-        >{#if urlSubmitting}Creating…{:else}Set up lead gen ChatGPT chatbot now{/if}</button
+        >{#if urlSubmitting}Setting up, please wait…{:else}Set up lead gen
+          ChatGPT chatbot now{/if}</button
       >
     </p>
     {#if urlMessage}
@@ -185,9 +147,4 @@
       </p>
     {/if}
   </form>
-{/if}
-{#if emailMessage}
-  <p class="text-red-700">
-    {emailMessage}
-  </p>
 {/if}

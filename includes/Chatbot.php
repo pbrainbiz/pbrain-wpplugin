@@ -38,26 +38,29 @@ namespace PBrain {
 
     public function add_plugin()
     {
+      $chatbot_id = self::$chatbot_settings->get_chatbot_id();
+      if (!empty($chatbot_id)) {
 ?>
-      <script>
-        window.pbrainAsyncInit = function() {
-          PBrain.init({
-            id: <?php echo json_encode(self::$chatbot_settings->get_chatbot_id()) ?>
-          });
-        };
+        <script>
+          window.pbrainAsyncInit = function() {
+            PBrain.init({
+              id: <?php echo json_encode($chatbot_id) ?>
+            });
+          };
 
-        (function(d, s, id) {
-          var js, fjs = d.getElementsByTagName(s)[0];
-          if (d.getElementById(id)) {
-            return;
-          }
-          js = d.createElement(s);
-          js.id = id;
-          js.src = 'http://localhost:8082/js/sdk.js';
-          fjs.parentNode.insertBefore(js, fjs);
-        }(document, 'script', 'pbrain-jssdk'));
-      </script>
+          (function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) {
+              return;
+            }
+            js = d.createElement(s);
+            js.id = id;
+            js.src = 'https://www.pbrain.biz/js/sdk.js';
+            fjs.parentNode.insertBefore(js, fjs);
+          }(document, 'script', 'pbrain-jssdk'));
+        </script>
 <?php
+      }
     }
 
     /**
