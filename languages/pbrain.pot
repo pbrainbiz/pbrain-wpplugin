@@ -1,0 +1,46 @@
+# Copyright (C) 2024 PBrain Lead Generation ChatGPT Chatbot
+# This file is distributed under the same license as the PBrain Lead Generation ChatGPT Chatbot package.
+msgid ""
+msgstr ""
+"Project-Id-Version: PBrain Lead Generation ChatGPT Chatbot 1.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/qs_tool_wp_pot_gen_1709224495_6859_715507\n"
+"POT-Creation-Date: 2024-02-29 16:34:55+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2024-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+
+#: includes/Chatbot.php:76
+msgid "Settings"
+msgstr ""
+
+#: includes/ChatbotSettings.php:103
+msgid "PBrain lead generation ChatGPT"
+msgstr ""
+
+#. translators: %s - WPBeginner URL for recommended WordPress hosting.
+
+#: pbrain-wpplugin.php:55
+msgid "Your site is running an <strong>insecure version</strong> of PHP that is no longer supported. Please contact your web hosting provider to update your PHP version or switch to a <a href=\"%s\" target=\"_blank\" rel=\"noopener noreferrer\">recommended WordPress hosting company</a>."
+msgstr ""
+#. Plugin Name of the plugin/theme
+msgid "PBrain Lead Generation ChatGPT Chatbot"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "https://www.pbrain.biz"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "Lead Generation Custom ChatGPT"
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "PBrain"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "https://www.pbrain.biz"
+msgstr ""
