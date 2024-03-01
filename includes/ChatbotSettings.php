@@ -84,7 +84,7 @@ namespace PBrain {
         $this->options = $new_settings;
         return wp_send_json([
           'status' => 'success',
-          'updated' => $updated,
+          'chatbotId' => $new_settings['chatbot_id'],
         ]);
       }
 
@@ -129,7 +129,7 @@ namespace PBrain {
         <h1><?php echo esc_html(get_admin_page_title()); ?></h1>
         <div id="pbrain-options" data-chatbot-id="<?php echo isset($this->options['chatbot_id']) ? esc_attr($this->options['chatbot_id']) : '' ?>" data-onboard-id="<?php echo isset($this->options['onboard_id']) ? esc_attr($this->options['onboard_id']) : '' ?>" data-signing-key="<?php echo isset($this->options['signing_key']) ? esc_attr($this->options['signing_key']) : '' ?>" data-url="<?php echo $url ?>" data-email="<?php echo $email ?>" data-admin-name="<?php echo $admin_name ?>" data-site-name="<?php echo $site_name ?>">
         </div>
-        <form method="post" action="options.php">
+        <form method="post" action="options.php" style="display: none">
           <input type="hidden" name="pbrain_settings" value="" />
           <?php
           // This prints out all hidden setting fields

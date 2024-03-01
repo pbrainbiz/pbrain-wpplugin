@@ -44,7 +44,7 @@
     );
 
     try {
-      await fetchRetry(ajaxurl, {
+      const { chatbotId: newChatbotId } = await fetchRetry(ajaxurl, {
         method: "POST",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
@@ -52,6 +52,7 @@
         },
         body,
       });
+      chatbotId = newChatbotId;
       successMessage = "PBrain lead gen ChatGPT has been added.";
       showEdit = false;
       created = true;
