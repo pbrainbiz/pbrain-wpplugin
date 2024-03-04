@@ -1,76 +1,90 @@
-=== AI ChatBot ===
+=== AI Chatbot by PBrain - collect leads, answer queries and improve conversion ===
 Contributors: PBrain
-Donate link: https://pbrain.biz/
-Tags: bot, chatbot, chatgpt, AI, LLM, generative AI, lead collection bot, FAQ bot, support bot
-Requires at least: 4.6
+Tags: chatbot, ChatGPT, AI, marketing, faq
+Requires at least: 5.5
 Tested up to: 6.4
-Stable tag: 5.1.6
-Requires PHP: 5.6
+Stable tag: 1.0.0
+Requires PHP: 7.0
 License: GPLv2 or later
-License URI: https://www.pbrain.biz/
 
-ChatBot for wordpress with AI to answer questions and collect data. NATIVE, No code, Conversational forms, ChatGPT, DialogFlow, Live Chat Bot, HelpDesk. 
+AI chatbot to collect data and answer queries. No code, conversational forms, ChatGPT and multi-language for best customer support and FAQ experience.
 
 == Description ==
+
 Improve customer conversion and engagement on your WordPress site, with PBrain lead generation ChatGPT chatbot.
-&nbsp;
-⭐ <strong>'One click'</strong> build and implementation
-⭐ <strong>Customized</strong>  based on content of your WordPress site.
-⭐ <strong>Free</strong>: only pay when we deliver value.
-&nbsp;
 
-= Lead generation with PBrain: The #1 WordPress chatbot plugin =
-Better support your customers and covert them to leads with PBrain lead generation ChatGPT.
-&nbsp;
+⭐ **One click** to implement, serving your customers immediately
+⭐ **Customized** answers based on content of your WordPress site.
+⭐ **Free**: pay only when we deliver value.
 
-- Powered by Generative AI
-- Keyword + semantic search
-- Conversational lead collection
-- Knows everything on your WordPress site
-- Multi-language support
+= Lead generation with PBrain: The smartest WordPress chatbot plugin =
 
+Better support your customers and convert them to leads with PBrain lead generation ChatGPT.
+
+- **Powered by ChatGPT Generative AI**
+  Answers everything about your website
+  
+- **Keyword + semantic hybrid search**
+  Enables ChatGPT to quote information and give accurate answers
+  
+- **Conversational lead collection**
+  Senses customer's interest and naturally asks for contact information
+  
+- **Automatic translation**
+  Engage your visitors in their preferred language
+
+- **Actionable analytics**
+  Know what your visitors are looking for, and questions not addressed in your website
 
 = Unlock the full power of PBrain chatbot with Paid Features =
 
 🔓 Unlock leads collected
+🗪 View conversions of leads
 📝 Edit chatbot in Word
-📊 Data analytics and customer insights
+📊 Advanced data analytics and customer insights
+📧 Option for analytics delivered to your inbox daily
 
+== Screenshots ==
 
-== Use ==
-
-1. Simply activating the Plugin will show the ChatBot on your WordPress site.
+1. Chatbot bubble on all pages
+2. Answers any questions about your website, citing sources
+3. Collect leads conversationally
+4. Analytics report delivered to your email inbox (part 1)
+5. Analytics report delivered to your email inbox (part 2)
 
 == Frequently Asked Questions ==
 
 = Can I customize my chatbot logo? =
-Yes, of course! Just upload your logo file in either JPG or PNG format.
+
+Yes, of course! Upload your logo file in either JPG or PNG format.
 &nbsp;
 * Paid feature
 
 = How do I add more content to the chatbot? =
-In Microsoft Word! Just edit the Word document that describe your chatbot. Add images, videos, tables easily.
+
+Download and edit the Word document that describes your chatbot. Add images, videos, and tables easily.
 &nbsp;
 * Paid feature
 
-= I am not getting emails from the ChatBot =
-The ChatBot uses the WordPress' default email function. If you are not getting emails from the ChatBot's email feature, it is likely that no emails are getting through from your WordPress site or they are ending up in the Spam box. Try using an SMTP mailer plugin.
+= I am not getting emails for lead information, or for analytics report =
 
+Please [whitelist](https://www.wikihow.com/Whitelist-an-Email) support@pbrain.biz
 
-= The ChatBot is NOT working in the front end. =
-The most common reason for this is if the theme is coded incorrectly and jQuery is loaded from external source. jQuery is included with WordPress core and according to WordPress standard, jQuery must be included using wp_enqueue_script. https://developer.wordpress.org/reference/functions/wp_enqueue_script/ . Please make sure if that is the case in your theme. 
+= The chatbot is NOT working in the front end. =
 
-Please contact us if you need [further help](https://www.wpbot.pro/free-support/). We take all user feedback sriously.
+The most common reason for this is if the theme is coded incorrectly, setting styles that conflicts with the chatbot. Use a different theme to check if the problem persists.
 
+Please contact support@pbrain.biz if you need further help. We take all user feedback seriously.
 
-= Does the ChatBot support images, GIFs, Videos =
+= Does the chatbot support images, GIFs, Videos =
 Images, GIFs and Youtube Videos are supported
 
-
 == Installation ==
-1. Install the plugin and activate.
 
-<strong>Done</strong>
+1. Install PBrain Chatbot either via the WordPress.org plugin repository or by uploading the files to your server. (See instructions on <a href="https://www.wpbeginner.com/beginners-guide/step-by-step-guide-to-install-a-wordpress-plugin-for-beginners/" rel="friend">how to install a WordPress plugin</a>)
+2. Activate PBrain Chatbot.
+3. Navigate to the `Settings > PBrain` tab in your admin menu and click the "Set up lead gen ChatGPT now" button to create your chatbot.
+4. Want more features? <a href="https://www.pbrain.biz" rel="friend" title="Pbrain">Subscribe to the Standard version</a>!
 
 == Changelog ==
 

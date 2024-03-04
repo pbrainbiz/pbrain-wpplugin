@@ -1,15 +1,15 @@
 <?php
 
 /**
- * Plugin Name:  PBrain Lead Generation ChatGPT Chatbot
- * Plugin URI:   https://www.pbrain.biz
- * Description:  Lead Generation Custom ChatGPT
- * Requires PHP: 7.0
- * Author:       PBrain
- * Author URI:   https://www.pbrain.biz
- * Version:      1.0.0
- * Text Domain:  pbrain
- * Domain Path:  /languages
+ * Plugin Name:       PBrain
+ * Plugin URI:        https://www.pbrain.biz
+ * Description:       AI chatbot to collect data and answer queries. No code, conversational forms, ChatGPT and multi-language for best customer support and FAQ experience.
+ * Requires at least: 5.5
+ * Requires PHP:      7.0
+ * Author:            PBrain
+ * Version:           1.0.0
+ * Text Domain:       pbrain
+ * Domain Path:       /languages
  */
 
 // Exit if accessed directly.
