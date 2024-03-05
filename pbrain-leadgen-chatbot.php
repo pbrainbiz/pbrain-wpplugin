@@ -17,6 +17,11 @@ if (!defined('ABSPATH')) {
   exit;
 }
 
+// Plugin version.
+if (!defined('PBRAIN_PLUGIN_VER')) {
+  define('PBRAIN_PLUGIN_VER', '1.0.0');
+}
+
 // Plugin folder path.
 if (!defined('PBRAIN_PLUGIN_DIR')) {
   define('PBRAIN_PLUGIN_DIR', plugin_dir_path(__FILE__));

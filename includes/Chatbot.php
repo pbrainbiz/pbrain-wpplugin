@@ -2,7 +2,7 @@
 
 namespace PBrain {
 
-  require_once PBRAIN_PLUGIN_DIR . '/includes/ChatbotSettings.php';
+  require_once PBRAIN_PLUGIN_DIR . 'includes/ChatbotSettings.php';
 
   /**
    * Main PBrain class.
@@ -44,7 +44,7 @@ namespace PBrain {
         <script>
           window.pbrainAsyncInit = function() {
             PBrain.init({
-              id: <?php echo json_encode($chatbot_id) ?>
+              id: <?php echo wp_json_encode($chatbot_id) ?>
             });
           };
 

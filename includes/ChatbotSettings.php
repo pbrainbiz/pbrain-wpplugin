@@ -39,14 +39,18 @@ namespace PBrain {
         return;
       }
 
-      $js_paths = glob(PBRAIN_PLUGIN_DIR . '/dist/*.js');
+      $js_paths = glob(PBRAIN_PLUGIN_DIR . 'dist/*.js');
       if (count($js_paths) > 0) {
-        wp_enqueue_script('pbrain-svelte-js', $js_paths[0], [], $hook, true);
+        $relative_path = substr($js_paths[0], strlen(PBRAIN_PLUGIN_DIR));
+        $url_path = plugins_url($relative_path, PBRAIN_PLUGIN_DIR . basename(PBRAIN_PLUGIN_NAME));
+        wp_enqueue_script('pbrain-svelte-js', $url_path, [], PBRAIN_PLUGIN_VER, true);
       }
 
-      $css_paths = glob(PBRAIN_PLUGIN_DIR . '/dist/*.css');
+      $css_paths = glob(PBRAIN_PLUGIN_DIR . 'dist/*.css');
       if (count($css_paths) > 0) {
-        wp_enqueue_style('pbrain-svelte-css', $css_paths[0]);
+        $relative_path = substr($css_paths[0], strlen(PBRAIN_PLUGIN_DIR));
+        $url_path = plugins_url($relative_path, PBRAIN_PLUGIN_DIR . basename(PBRAIN_PLUGIN_NAME));
+        wp_enqueue_style('pbrain-svelte-css', $url_path, [], PBRAIN_PLUGIN_VER);
       }
 
       wp_localize_script('pbrain-svelte-js', 'pbrain_wpplugin_global', [
@@ -127,14 +131,14 @@ namespace PBrain {
 ?>
       <div class="wrap">
         <h1><?php echo esc_html(get_admin_page_title()); ?></h1>
-        <div id="pbrain-options" data-chatbot-id="<?php echo isset($this->options['chatbot_id']) ? esc_attr($this->options['chatbot_id']) : '' ?>" data-onboard-id="<?php echo isset($this->options['onboard_id']) ? esc_attr($this->options['onboard_id']) : '' ?>" data-signing-key="<?php echo isset($this->options['signing_key']) ? esc_attr($this->options['signing_key']) : '' ?>" data-url="<?php echo $url ?>" data-email="<?php echo $email ?>" data-admin-name="<?php echo $admin_name ?>" data-site-name="<?php echo $site_name ?>">
+        <div id="pbrain-options" data-chatbot-id="<?php echo isset($this->options['chatbot_id']) ? esc_attr($this->options['chatbot_id']) : '' ?>" data-onboard-id="<?php echo isset($this->options['onboard_id']) ? esc_attr($this->options['onboard_id']) : '' ?>" data-signing-key="<?php echo isset($this->options['signing_key']) ? esc_attr($this->options['signing_key']) : '' ?>" data-url="<?php echo esc_attr($url) ?>" data-email="<?php echo esc_attr($email) ?>" data-admin-name="<?php echo esc_attr($admin_name) ?>" data-site-name="<?php echo esc_attr($site_name) ?>">
         </div>
         <form method="post" action="options.php" style="display: none">
           <input type="hidden" name="pbrain_settings" value="" />
           <?php
           // This prints out all hidden setting fields
           settings_fields('pbrain_option_group');
-          submit_button("Reset", type: 'secondary');
+          submit_button("Reset", 'secondary');
           ?>
         </form>
       </div>
