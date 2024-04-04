@@ -2,11 +2,14 @@
 
 /**
  * Plugin Name:       PBrain
- * Plugin URI:        https://www.pbrain.biz
+ * Plugin URI:        https://github.com/pbrainbiz/pbrain-wpplugin
+ * Author URI:        https://www.pbrain.biz
  * Description:       AI chatbot to collect data and answer queries. No code, conversational forms, ChatGPT and multi-language for best customer support and FAQ experience.
  * Requires at least: 5.5
  * Requires PHP:      7.0
  * Author:            PBrain
+ * License:           GPL v2 or later
+ * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
  * Version:           1.0.0
  * Text Domain:       pbrain
  * Domain Path:       /languages

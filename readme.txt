@@ -11,7 +11,7 @@ AI chatbot to collect data and answer queries. No code, conversational forms, Ch
 
 == Description ==
 
-Improve customer conversion and engagement on your WordPress site, with PBrain lead generation ChatGPT chatbot.
+Improve customer conversion and engagement on your WordPress site, with [PBrain lead generation ChatGPT chatbot](https://www.pbrain.biz/).
 
 ⭐ **One click** to implement, serving your customers immediately
 ⭐ **Customized** answers based on content of your WordPress site.
@@ -35,6 +35,10 @@ Better support your customers and convert them to leads with PBrain lead generat
 
 - **Actionable analytics**
   Know what your visitors are looking for, and questions not addressed in your website
+
+= Requirements =
+
+This plugin automatically creates an account on [PBrain](https://www.pbrain.biz/) with your WordPress site URL and email address, and embeds the chatbot from [PBrain](https://www.pbrain.biz/) in your website. Your data is stored on servers operated by PBrain, which are located in Singapore. By adding the PBrain lead generation ChatGPT chatbot on your site, you agree to our [Terms of Use](https://www.pbrain.biz/terms) and [Privacy Policy](https://www.pbrain.biz/privacypolicy).
 
 = Unlock the full power of PBrain chatbot with Paid Features =
 
@@ -84,9 +88,9 @@ Images, GIFs and Youtube Videos are supported
 1. Install PBrain Chatbot either via the WordPress.org plugin repository or by uploading the files to your server. (See instructions on <a href="https://www.wpbeginner.com/beginners-guide/step-by-step-guide-to-install-a-wordpress-plugin-for-beginners/" rel="friend">how to install a WordPress plugin</a>)
 2. Activate PBrain Chatbot.
 3. Navigate to the `Settings > PBrain` tab in your admin menu and click the "Set up lead gen ChatGPT now" button to create your chatbot.
-4. Want more features? <a href="https://www.pbrain.biz" rel="friend" title="Pbrain">Subscribe to the Standard version</a>!
+4. Want more features? <a href="https://www.pbrain.biz" rel="friend" title="PBrain">Subscribe to the Standard version</a>!
 
 == Changelog ==
 
 = 1.0.0 =
-*Inception
+- Inception. If you find this helpful, please consider contributing or giving a star on our [Github repository](https://github.com/pbrainbiz/pbrain-wpplugin).

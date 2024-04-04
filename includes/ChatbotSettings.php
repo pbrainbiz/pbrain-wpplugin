@@ -68,10 +68,10 @@ namespace PBrain {
 
       if (
         isset($_POST['data'], $_POST['_ajax_nonce'])
-        && wp_verify_nonce($_POST['_ajax_nonce'], 'pbrain-ajax-nonce')
+        && wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['_ajax_nonce'])), 'pbrain-ajax-nonce')
       ) {
         // Input var okay.
-        $user_settings = json_decode(wp_unslash($_POST['data']));
+        $user_settings = json_decode(sanitize_text_field(wp_unslash($_POST['data'])));
         $new_settings = [
           'chatbot_id' => !empty($user_settings->chatbotId)
             ? $user_settings->chatbotId
