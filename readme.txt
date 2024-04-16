@@ -48,6 +48,23 @@ This plugin automatically creates an account on [PBrain](https://www.pbrain.biz/
 📊 Advanced data analytics and customer insights
 📧 Option for analytics delivered to your inbox daily
 
+= Development Resources =
+
+This plugin is built using development code not included in the WordPress.org download because it isn’t required for use. This code includes the rollup build used to create our minified CSS and JavaScript.
+
+All source code associated with this plugin is open source, free to use for any purpose, and released under the GPL v2.0 license. You can [browse our source code and history at GitHub](https://github.com/pbrainbiz/pbrain-wpplugin).
+
+The pnpm package manager is required for building.
+
+1. From the project root directory, use pnpm to install the required node modules.
+   ```
+   pnpm install
+   ```
+2. Build Svelte and Typescript files into minified CSS and JavaScript.
+   ```
+   pnpm build
+   ```
+
 == Screenshots ==
 
 1. Chatbot bubble on all pages
