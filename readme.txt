@@ -1,4 +1,4 @@
-=== AI Chatbot by PBrain - collect leads, answer queries and improve conversion ===
+=== Generative AI Chatbot - collect leads conversationally, answer queries and improve conversion ===
 Contributors: PBrain
 Tags: chatbot, ChatGPT, AI, marketing, faq
 Requires at least: 5.5
@@ -111,3 +111,6 @@ Images, GIFs and Youtube Videos are supported
 
 = 1.0.0 =
 - Inception. If you find this helpful, please consider contributing or giving a star on our [Github repository](https://github.com/pbrainbiz/pbrain-wpplugin).
+
+= 1.0.1 =
+- Update banner and title.
