@@ -3,7 +3,7 @@ Contributors: PBrain
 Tags: chatbot, ChatGPT, AI, marketing, faq
 Requires at least: 5.5
 Tested up to: 6.4
-Stable tag: 1.0.0
+Stable tag: 1.0.3
 Requires PHP: 7.0
 License: GPLv2 or later
 
@@ -112,5 +112,5 @@ Images, GIFs and Youtube Videos are supported
 = 1.0.0 =
 - Inception. If you find this helpful, please consider contributing or giving a star on our [Github repository](https://github.com/pbrainbiz/pbrain-wpplugin).
 
-= 1.0.1 =
+= 1.0.3 =
 - Update banner and title.
